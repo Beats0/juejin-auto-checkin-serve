@@ -6,9 +6,10 @@
 
 ~~本项目使用`Github Action`来部署自动签到程序，无需自己购买服务器，安全可靠且方便。另外支持钉钉机器人通知，中了大奖第一时间便可知晓。~~
 
-自用，原项目被ban了，改了下不再使用`Github Action`，需要自己用服务器跑脚本，相关配置文件为 `.env`。
+自用，原项目被ban了，改了下不再使用`Github Action`，需要自己用服务器跑脚本，相关配置文件为 [`.env`](https://github.com/Beats0/juejin-auto-checkin-serve/blob/main/.env)。
 
-例子
+
+[`.env`](https://github.com/Beats0/juejin-auto-checkin-serve/blob/main/.env) 例子
 
 ```
 COOKIE=MONITOR_WEB_ID=xxx; _ga=GAxxx; n_mh=xxx; passport_csrf_token_default=xxx;...
@@ -24,31 +25,29 @@ FEISHU_SECRET=
 TASK_TIME=0 0 2 * * *
 ```
 
+<b>
+
+不要fork本项目！！！
+
+不要fork本项目！！！
+
+不要fork本项目！！！
+
+注意不要上传或公开你的 `.env` 配置文件, 这可能会导致相关账户信息泄露。
+</b>
+
 ### 使用方式
 
-1. `fork`本项目。
+1. 把 Name 设置为`COOKIE`这个字符串，Value 设置为`自己掘金的Cookie`。
 
-![Fork项目](./statics/imgs/fork.png)
-
-2. 依次点击【Setting】、【Secrets】、【New repository secret】。
-
-![New repository secret](./statics/imgs/secrets.png)
-
-3. 把 Name 设置为`COOKIE`这个字符串，Value 设置为`自己掘金的Cookie`。
-
-![action-secrets](./statics/imgs/action-secrets.jpg)
-
-4. 掘金的 Cookie 可以在掘金打开开发者工具，然后依次点击【Network】、【Fetch/XHR】（或者【XHR】）、【任一 Name】查看是否有`cookie`字段，如果没有可以换一个接口试试，找到后复制`cookie`的值，粘贴到上面 Value 处，并点击【Add secret】。
+2. 掘金的 Cookie 可以在掘金打开开发者工具，然后依次点击【Network】、【Fetch/XHR】（或者【XHR】）、【任一 Name】查看是否有`cookie`字段，如果没有可以换一个接口试试，找到后复制`cookie`的值，粘贴到上面 Value 处，并点击【Add secret】。
 
 ![get_cookie](./statics/imgs/get_cookie.png)
 
-5. 允许 Github Actions 工作流。
 
-![enable](./statics/imgs/enable.png)
+3. 第二天查看是否已经签到成功，如果中实物奖品请尽量及时填写收货地址。
 
-6. 第二天查看是否已经签到成功，如果中实物奖品请尽量及时填写收货地址。
-
-7. 若想自动获取挖矿游戏奖励
+4. 若想自动获取挖矿游戏奖励
 
 在 github 依次点击【Setting】、【Secrets】、【New repository secret】 然后把 Name 设置为`USERID`这个字符串，Value 设置为`游戏的用户ID`。
 
@@ -56,7 +55,6 @@ TASK_TIME=0 0 2 * * *
 
 如图所示：
 
-![image-20220112100911876](https://coderduan-image.oss-cn-hangzhou.aliyuncs.com/img/202201121009917.png)
 
 ![image-20220112101035646](https://coderduan-image.oss-cn-hangzhou.aliyuncs.com/img/202201121010678.png)
 
@@ -92,15 +90,13 @@ TASK_TIME=0 0 2 * * *
 
 5. 在 Github 的 Secrets 中在添加一个变量，Name 是`DINGTALK_SECRET`，Value 是刚才复制的内容（操作过程可以参考上面【使用方式】第 2、3 步）。
 
-![添加DINGTALK_SECRET](./statics/imgs/dingtalk5.png)
 
 6. 完成后复制`Webhook`的内容。
 
 ![复制Webhook](./statics/imgs/dingtalk6.png)
 
-7. 在 Github 的 Secrets 中在添加一个变量，Name 是`DINGTALK_WEBHOOK`，Value 是刚才复制的内容。
+7. Name 是 `DINGTALK_WEBHOOK`，Value 是刚才复制的内容。
 
-![添加DINGTALK_WEBHOOK](./statics/imgs/dingtalk7.png)
 
 8. 返回钉钉完成即可，由于我们是凌晨签到的，如果害怕大半夜推送打扰到自己，可以把群设置成消息免打扰。
 
@@ -164,8 +160,7 @@ PS：如果出现`接口请求正常，企业微信接受消息正常，个人�
 
 4. 机器人名称和描述随意填写,点击下一步 ![](./statics/imgs/feishu4.png)
 
-5. 在`安全设置`中勾选`签名校验`,复制下 webhook 地址和签名校验内容，在 Github 的 Secrets 中在添加 2 个变量，Name 是`FEISHU_WEBHOOK`，Value 填写 webhook 地址,Name 是`FEISHU_SECRET`，Value 填写的签名校验内容 ![](./statics/imgs/feishu5.png) ![](./statics/imgs/feishu6.png) ![](./statics/imgs/feishu7.png)
-
+5. 在`安全设置`中勾选`签名校验`,复制下 webhook 地址和签名校验内容，Name 是`FEISHU_WEBHOOK`，Value 填写 webhook 地址,Name 是`FEISHU_SECRET`，Value 填写的签名校验内容 ![](./statics/imgs/feishu5.png)
 
 ## 使用pm2管理
 
