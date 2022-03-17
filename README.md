@@ -153,15 +153,14 @@ PS：如果出现`接口请求正常，企业微信接受消息正常，个人�
 
 2. 在企业微信客户端 「我」 → 「设置」 → 「新消息通知」中关闭 “仅在企业微信中接受消息” 限制条件 ![](https://img.ams1.imgbed.xyz/2021/06/01/HPKPX.jpg)
 
-#### 第五步，在 github setting 添加变量
+#### 第五步，修改变量
 
-在 Github 的 Secrets 中在添加三个变量：
 
 1. 修改 `.env` 文件中的 `WX_APP_ID`，Value 是第二步的 AgentId。
 
 2. 修改 `.env` 文件中的 `WX_APP_SECRET`，Value 是第二步 Secret。
 
-3.修改 `.env` 文件中的 `WX_COMPANY_ID`，Value 是第三步的 企业 ID。
+3. 修改 `.env` 文件中的 `WX_COMPANY_ID`，Value 是第三步的 企业 ID。
 
 ### 接入飞书机器人
 
