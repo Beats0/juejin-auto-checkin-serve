@@ -14,5 +14,10 @@ module.exports = {
   WX_APP_SECRET: process.env.WX_APP_SECRET || '', // 应用 secret
   FEISHU_WEBHOOK: process.env.FEISHU_WEBHOOK || '',
   FEISHU_SECRET: process.env.FEISHU_SECRET || '',
+  MAIL_HOST: process.env.MAIL_HOST || '',
+  MAIL_SECURE: process.env.MAIL_SECURE === 'true' || true,
+  MAIL_AUTH_USER: process.env.MAIL_AUTH_USER || '',
+  MAIL_AUTH_PASS: process.env.MAIL_AUTH_PASS || '',
+  MAIL_TO: process.env.MAIL_TO || '',
   TASK_TIME: process.env.TASK_TIME || '',
 }

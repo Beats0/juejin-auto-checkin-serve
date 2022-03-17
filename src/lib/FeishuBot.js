@@ -1,6 +1,7 @@
 const axios = require('axios')
 const crypto = require('crypto')
 const dayjs = require('dayjs')
+const argv = require('minimist')(process.argv.slice(2));
 
 
 class FeishuBot {
@@ -59,7 +60,10 @@ class FeishuBot {
                 content: {
                     text: this.text,
                 }
-            }).then(() => {
+            }).then((res) => {
+                if(argv.mode === 'test') {
+                    console.log('FeishuBot test result: ', res)
+                }
                 this.text = ''
             })
         }, 1000)

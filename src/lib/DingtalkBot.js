@@ -1,6 +1,7 @@
 const axios = require('axios')
 const crypto = require('crypto')
 const dayjs = require('dayjs')
+const argv = require('minimist')(process.argv.slice(2));
 
 const defaultOptions = {
   msgtype: 'text',
@@ -66,7 +67,10 @@ class DingtalkBot {
           title: '掘金签到日志',
           text: this.text,
         }
-      }).then(() => {
+      }).then((res) => {
+        if(argv.mode === 'test') {
+          console.log('DingtalkBot test result: ', res)
+        }
         this.text = ''
       })
     }, 1000)
