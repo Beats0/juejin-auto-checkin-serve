@@ -1,77 +1,8 @@
 const request = require('./request')
+const { getCookieString } = require("./utils");
 
-module.exports = function (cookie) {
+module.exports = function () {
   return {
-    /**
-     * 查询今日是否有免费抽奖机会
-     * @returns Promise<any>
-     */
-    lottery_config: function () {
-      return request({
-        method: 'GET',
-        url: 'https://api.juejin.cn/growth_api/v1/lottery_config/get',
-        headers: {
-          cookie
-        }
-      })
-    },
-
-    /**
-     * 查询今日是否已经签到
-     * @returns Promise<any>
-     */
-    get_today_status: function () {
-      return request({
-        method: 'GET',
-        url: 'https://api.juejin.cn/growth_api/v1/get_today_status',
-        headers: {
-          cookie
-        }
-      })
-    },
-
-    /**
-     * 签到
-     * @returns Promise<any>
-     */
-    check_in: function () {
-      return request({
-        method: 'POST',
-        url: 'https://api.juejin.cn/growth_api/v1/check_in',
-        headers: {
-          cookie
-        }
-      })
-    },
-
-    /**
-     * 免费抽奖
-     * @returns Promise<any>
-     */
-    draw: function () {
-      return request({
-        method: 'POST',
-        url: 'https://api.juejin.cn/growth_api/v1/lottery/draw',
-        headers: {
-          cookie
-        }
-      })
-    },
-
-    /**
-     * 可抽奖次数
-     * @returns Promise<any>
-     */
-    get_cur_point: function () {
-      return request({
-        method: 'GET',
-        url: 'https://api.juejin.cn/growth_api/v1/get_cur_point',
-        headers: {
-          cookie
-        }
-      })
-    },
-
     /**
      * 获取沾喜气中奖列表
      * @returns Promise<any>
@@ -81,7 +12,7 @@ module.exports = function (cookie) {
         method: 'POST',
         url: 'https://api.juejin.cn/growth_api/v1/lottery_history/global_big',
         headers: {
-          cookie
+          cookie: getCookieString()
         },
         data: { page_no: 1, page_size: 5 }
       })
@@ -97,7 +28,7 @@ module.exports = function (cookie) {
         method: 'POST',
         url: 'https://api.juejin.cn/growth_api/v1/lottery_lucky/dip_lucky',
         headers: {
-          cookie
+          cookie: getCookieString()
         },
         data: { lottery_history_id: id }
       })

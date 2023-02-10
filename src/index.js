@@ -1,43 +1,14 @@
 const schedule = require('node-schedule');
-const { COOKIE, ALL_IN, USERID } = require('./lib/config')
+const { USERID, IS_RANDOM_TIME, TASK_TIME } = require('./lib/config')
 const message = require('./lib/message')
+const { checkin } = require('./lib/checkin')
+const { autoGame } = require('./lib/game/autoGame')
+const { getCookieString, sleep } = require("./lib/utils");
 
+const COOKIE = getCookieString()
 if (!COOKIE) return message('获取不到cookie，请检查设置')
 
-const { autoGame } = require('./lib/game/autoGame')
-
-const api = require('./lib/api')(COOKIE)
-
-// 获取可抽奖次数
-async function get_raw_time() {
-  const res = await api.get_cur_point()
-  return Math.floor(res / 200)
-}
-
-// 抽奖一次
-async function draw() {
-  const res = await api.draw()
-  const { lottery_name } = res
-  message(`抽奖成功，获得: ${lottery_name}`)
-  return res
-}
-
-// 抽所有
-async function draw_all() {
-  const time = await get_raw_time()
-  message(`梭哈, 可抽奖次数${time}`)
-  if (!time) {
-    message(`抽奖完成`)
-  }
-
-  for (let i = 0; i < time; i++) {
-    await draw()
-  }
-
-  if (await get_raw_time()) {
-    await draw_all()
-  }
-}
+const api = require('./lib/api')()
 
 // 粘喜气
 async function dipLucky() {
@@ -54,24 +25,19 @@ async function dipLucky() {
   if (dip_action === 1) return `沾喜气成功! ${BeamingValue}`
 }
 
+console.log(`time: ${TASK_TIME}`)
 // 定时任务
 const scheduleTask = () => {
-  schedule.scheduleJob(process.env.TASK_TIME, async () => {
-    const today_status = await api.get_today_status()
-    if (today_status) {
-      message('今日已经签到!')
-      // 查询今日是否有免费抽奖机会
-      const { free_count } = await api.lottery_config()
-      if (free_count === 0) return message('今日已经免费抽奖!')
-      // 去抽奖
-      ALL_IN === 'true' ? await draw_all() : await draw()
-      return
+  schedule.scheduleJob(TASK_TIME, async () => {
+    if (IS_RANDOM_TIME) {
+      // [10-40]分钟内
+      const st = Math.floor(Math.random() * 30) + 10
+      message(`定时运行: ${ st }分钟后开始签到`)
+      await sleep(st * 1000 * 60)
     }
-    api.check_in().then(({ sum_point }) => {
-      message(`签到成功!当前积分: ${sum_point}`)
-      // 去抽奖
-      ALL_IN === 'true' ? draw_all() : draw()
-    })
+    message('开始签到...')
+    await checkin()
+    message('签到成功...')
     const dipMsg = await dipLucky()
     message(dipMsg)
     if (!USERID) return message('获取不到uid，请检查设置')

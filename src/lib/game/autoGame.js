@@ -6,8 +6,9 @@ const NAGETIVE_DIRECTION = {
 }
 const COLUMN = 6
 const OBSTACLE = 6
-const { COOKIE: cookie, USERID: uid } = require('../config')
+const { USERID: uid } = require('../config')
 const { Game } = require('./Game')
+const { getCookieString } = require("../utils");
 
 /**
  * @desc 一维数组转二维数组
@@ -57,6 +58,8 @@ const getTarck = maps => {
 let runNum = 0
 let errorCalled = false // 报错后，尝试再次执行
 const autoGame = async () => {
+  const cookie = getCookieString()
+
   try {
     runNum++
     if (runNum > 500) return // 防止死循环

@@ -1,11 +1,12 @@
 {
-  "name": "juejin-auto-checkin-serve",
-  "version": "1.0.1",
-  "description": "掘金每日自动签到，自动抽奖，自动粘喜气,自动获得游戏奖励",
+  "name": "juejin-checkin",
+  "version": "1.0.0",
+  "description": "",
   "main": "./src/index",
   "homepage": "https://github.com/Beats0/juejin-auto-checkin-serve",
   "scripts": {
     "start": "node ./src/index",
+    "login": "node ./login",
     "pm2": "pm2 start ./src/index.js  --name=juejin-auto-checkin-serve",
     "test:api": "node ./test/api.test.js --mode=test",
     "test:dingtalk": "node ./test/dingtalk-bot.test.js --mode=test",
@@ -14,15 +15,6 @@
     "test:wx": "node ./test/WXWorkNotify-bot.test.js --mode=test",
     "test:game": "node ./src/lib/game/run.js --mode=test"
   },
-  "keywords": [
-    "掘金",
-    "签到",
-    "抽奖",
-    "粘喜气",
-    "自动"
-  ],
-  "author": "Orange",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
     "dayjs": "^1.10.6",
@@ -31,6 +23,9 @@
     "jsonwebtoken": "^8.5.1",
     "minimist": "^1.2.5",
     "node-schedule": "^2.1.0",
-    "nodemailer": "^6.7.2"
-  }
+    "nodemailer": "^6.7.2",
+    "puppeteer": "^19.6.3"
+  },
+  "author": "Beats0",
+  "license": "MIT"
 }

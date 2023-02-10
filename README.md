@@ -12,7 +12,6 @@
 [`.env`](https://github.com/Beats0/juejin-auto-checkin-serve/blob/main/.env) 例子
 
 ```
-COOKIE=MONITOR_WEB_ID=xxx; _ga=GAxxx; n_mh=xxx; passport_csrf_token_default=xxx;...
 USERID=xxx
 DINGTALK_WEBHOOK=https://oapi.dingtalk.com/robot/send?access_token=xxx
 DINGTALK_SECRET=xxx
@@ -27,26 +26,27 @@ MAIL_SECURE=
 MAIL_AUTH_USER=
 MAIL_AUTH_PASS=
 MAIL_TO=
-TASK_TIME=0 0 2 * * *
+TASK_TIME=0 0 10 * * *
+IS_RANDOM_TIME=true
 ```
 
 <b>
 
-注意不要上传或公开你的 `.env` 配置文件, 这可能会导致相关账户信息泄露。
+注意不要上传或公开你的 `.env` 和 `cookie` 文件, 这可能会导致相关账户信息泄露。
 </b>
 
 ### 使用方式
 
-1. 网页登录自己的掘金账号，Cookie可以在掘金打开开发者工具，然后依次点击【Network】、【Fetch/XHR】（或者【XHR】）、【 Name】查看是否有`cookie`字段，如果没有可以换一个接口试试，找到后复制`cookie`的值，修改 `.env` 文件中的 `COOKIE` 这个字符串，Value 设置为`自己掘金的Cookie`。
+1. 第一次使用或cookie过期
 
-![get_cookie](./statics/imgs/get_cookie.png)
+```sh
+npm run login
+```
+
+网页登录自己的掘金账号，默认60s后运行结束，并会自动保存cookie
+
 
 游戏 ID 获取方式:在掘金首页打开控制台输入这行代码`window.__NUXT__.state.auth.user.id`就可以得到，修改`.env` 文件中的 `USERID` 这个字符串，Value 设置为游戏 ID。
-
-如图所示：
-
-
-![image-20220112101035646](https://coderduan-image.oss-cn-hangzhou.aliyuncs.com/img/202201121010678.png)
 
 2. 启动脚本
 
@@ -77,11 +77,8 @@ $ pm2 delete   <app_name|namespace|id|'all'|json_conf>
 
 ### 抽奖时间修改
 
-修改 `.env` 文件中的 `TASK_TIME`, 以服务器时间为准, 默认 `0 0 2 * * *`, 即每天凌晨2点自动执行。
+修改 `.env` 文件中的 `TASK_TIME`, 以服务器时间为准, 默认 `0 0 10 * * *`, 即每天10点自动执行，默认开启随机延迟 `IS_RANDOM_TIME`, 为[10-40]分钟内
 
-### 抽奖梭哈
-
-修改 `.env` 文件中的 `ALL_IN`，bool类型，默认为空，即不开启抽奖梭哈， `true` 开启自动抽奖梭哈
 
 ### 接入钉钉机器人
 
